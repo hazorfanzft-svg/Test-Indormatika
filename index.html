@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по информатике | Токтобаев Шахром</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 700px;
+            padding: 30px 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #0f3460, #e94560, #0f3460);
+        }
+        h1 {
+            text-align: center;
+            color: #0f3460;
+            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .author-badge {
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 6px 15px;
+            font-size: 13px;
+            color: #333;
+            display: inline-block;
+            margin: 0 auto 20px;
+            text-align: center;
+            width: fit-content;
+            border: 1px solid #ddd;
+            font-weight: 500;
+        }
+        .screen {
+            display: none;
+        }
+        .screen.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: 0.2s;
+            outline: none;
+        }
+        input:focus {
+            border-color: #0f3460;
+            box-shadow: 0 0 0 3px rgba(15, 52, 96, 0.1);
+        }
+        .btn {
+            background: #0f3460;
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            letter-spacing: 0.3px;
+        }
+        .btn:hover {
+            background: #1a4a80;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(15, 52, 96, 0.3);
+        }
+        .btn:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .timer {
+            background: #e94560;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-align: center;
+            width: auto;
+            min-width: 120px;
+        }
+        .timer.warning {
+            background: #ff6b6b;
+            animation: pulse 0.8s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        .question-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #0f3460;
+        }
+        .question-text {
+            font-weight: 600;
+            font-size: 17px;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        .options label {
+            display: block;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-weight: 400;
+            transition: 0.2s;
+        }
+        .options label:hover {
+            background: #eef2ff;
+            border-color: #0f3460;
+        }
+        .options input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+        .certificate {
+            background: #fffef5;
+            border: 3px double #0f3460;
+            padding: 30px;
+            text-align: center;
+            border-radius: 5px;
+            position: relative;
+        }
+        .certificate h2 {
+            font-size: 32px;
+            color: #0f3460;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .certificate .recipient {
+            font-size: 28px;
+            font-weight: 700;
+            color: #e94560;
+            margin: 15px 0;
+            border-bottom: 2px solid #ccc;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .certificate .details {
+            font-size: 16px;
+            color: #333;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        .certificate .score {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0f3460;
+            margin: 15px 0;
+        }
+        .certificate .footer-cert {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #777;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        .error-msg {
+            background: #ffe3e3;
+            color: #c0392b;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+            border: 1px solid #e74c3c;
+            display: none;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-outline {
+            background: white;
+            border: 2px solid #0f3460;
+            color: #0f3460;
+        }
+        .btn-outline:hover {
+            background: #f0f4ff;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+            }
+            .container::before {
+                display: none;
+            }
+            .btn,
+            .timer,
+            #timerBlock {
+                display: none !important;
+            }
+            .certificate {
+                border: 3px solid #000;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🧠 Тест по информатике</h1>
+        <div class="subtitle">Проверьте свои знания • 30 минут • 5 вопросов</div>
+        <div class="author-badge" style="display: block; text-align: center;">Автор: Токтобаев Шахром</div>
+
+        <!-- ЭКРАН РЕГИСТРАЦИИ -->
+        <div id="registerScreen" class="screen active">
+            <h3 style="text-align: center; margin-bottom: 20px;">📋 Регистрация</h3>
+            <div class="form-group">
+                <label>Имя</label>
+                <input type="text" id="firstName" placeholder="Введите ваше имя" value="Шахром">
+            </div>
+            <div class="form-group">
+                <label>Фамилия</label>
+                <input type="text" id="lastName" placeholder="Введите вашу фамилию" value="Токтобаев">
+            </div>
+            <div id="regError" class="error-msg">Пожалуйста, заполните оба поля!</div>
+            <button class="btn" id="startTestBtn">✅ Зарегистрироваться и начать тест</button>
+            <p style="text-align: center; font-size: 12px; color: #888; margin-top: 15px;">
+                Данные автоматически сохраняются в сертификате. Автор теста — Токтобаев Шахром.
+            </p>
+        </div>
+
+        <!-- ЭКРАН ТЕСТА -->
+        <div id="testScreen" class="screen">
+            <div id="timerBlock" style="text-align: center;">
+                <span class="timer" id="timerDisplay">30:00</span>
+            </div>
+            <div id="questionsContainer"></div>
+            <div id="testError" class="error-msg">Вы не ответили на все вопросы! Проверьте выделенные поля.</div>
+            <div class="btn-group">
+                <button class="btn" id="finishTestBtn">🏁 Завершить тест</button>
+            </div>
+        </div>
+
+        <!-- ЭКРАН СЕРТИФИКАТА -->
+        <div id="certificateScreen" class="screen">
+            <div class="certificate" id="certificateContent">
+                <h2>СЕРТИФИКАТ</h2>
+                <p style="font-size: 14px; color: #555;">об успешном прохождении теста по информатике</p>
+                <div class="recipient" id="certName">—</div>
+                <div class="details">
+                    Тест завершён в рамках 30-минутного испытания.<br>
+                    Количество правильных ответов:
+                </div>
+                <div class="score" id="certScore">0 / 5</div>
+                <div class="details" id="certPercentage">Результат: 0%</div>
+                <div class="footer-cert">
+                    <strong>Автор теста: Токтобаев Шахром</strong><br>
+                    Дата: <span id="certDate"></span><br>
+                    Данный сертификат сгенерирован автоматически.
+                </div>
+            </div>
+            <div class="btn-group" style="margin-top: 20px;">
+                <button class="btn" id="printBtn">🖨️ Распечатать сертификат</button>
+                <button class="btn btn-outline" id="downloadAttemptBtn">⬇️ Скачать сертификат</button>
+            </div>
+            <p id="downloadError" class="error-msg" style="margin-top: 10px;"></p>
+            <button class="btn btn-outline" id="retryBtn" style="margin-top: 10px;">🔄 Пройти тест заново</button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- СОСТОЯНИЕ ----------
+            const questions = [{
+                question: '1. Что такое алгоритм?',
+                options: [
+                    'Список данных',
+                    'Последовательность действий для решения задачи',
+                    'Язык программирования',
+                    'Компьютерная программа'
+                ],
+                correct: 1
+            }, {
+                question: '2. Какая система счисления используется в компьютерах?',
+                options: ['Десятичная', 'Восьмеричная', 'Двоичная', 'Шестнадцатеричная'],
+                correct: 2
+            }, {
+                question: '3. Что означает аббревиатура CPU?',
+                options: [
+                    'Центральное процессорное устройство',
+                    'Блок питания',
+                    'Оперативная память',
+                    'Жесткий диск'
+                ],
+                correct: 0
+            }, {
+                question: '4. Какой протокол используется для передачи веб-страниц?',
+                options: ['FTP', 'HTTP', 'SMTP', 'TCP'],
+                correct: 1
+            }, {
+                question: '5. Что из перечисленного является языком программирования?',
+                options: ['HTML', 'CSS', 'Python', 'XML'],
+                correct: 2
+            }];
+
+            let timerInterval = null;
+            let timeLeft = 30 * 60; // 30 минут в секундах
+            let userFirstName = '';
+            let userLastName = '';
+
+            // DOM-элементы
+            const registerScreen = document.getElementById('registerScreen');
+            const testScreen = document.getElementById('testScreen');
+            const certificateScreen = document.getElementById('certificateScreen');
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
+            const regError = document.getElementById('regError');
+            const testError = document.getElementById('testError');
+            const timerDisplay = document.getElementById('timerDisplay');
+            const timerBlock = document.getElementById('timerBlock');
+            const questionsContainer = document.getElementById('questionsContainer');
+            const certName = document.getElementById('certName');
+            const certScore = document.getElementById('certScore');
+            const certPercentage = document.getElementById('certPercentage');
+            const certDate = document.getElementById('certDate');
+            const downloadError = document.getElementById('downloadError');
+
+            // ---------- ФУНКЦИИ ----------
+            function showScreen(screen) {
+                registerScreen.classList.remove('active');
+                testScreen.classList.remove('active');
+                certificateScreen.classList.remove('active');
+                screen.classList.add('active');
+            }
+
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            function updateTimerDisplay() {
+                timerDisplay.textContent = formatTime(timeLeft);
+                if (timeLeft <= 300) { // 5 минут
+                    timerDisplay.parentElement.classList.add('warning');
+                } else {
+                    timerDisplay.parentElement.classList.remove('warning');
+                }
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishTest(true);
+                }
+            }
+
+            function startTimer() {
+                timeLeft = 30 * 60;
+                updateTimerDisplay();
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                }, 1000);
+            }
+
+            function renderQuestions() {
+                questionsContainer.innerHTML = '';
+                questions.forEach((q, index) => {
+                    const block = document.createElement('div');
+                    block.className = 'question-block';
+                    block.id = `question-${index}`;
+                    block.innerHTML = `
+                        <div class="question-text">${q.question}</div>
+                        <div class="options">
+                            ${q.options.map((opt, optIndex) => `
+                                <label>
+                                    <input type="radio" name="q${index}" value="${optIndex}">
+                                    ${opt}
+                                </label>
+                            `).join('')}
+                        </div>
+                    `;
+                    questionsContainer.appendChild(block);
+                });
+            }
+
+            function collectAnswers() {
+                const answers = [];
+                let allAnswered = true;
+                questions.forEach((q, index) => {
+                    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                    if (selected) {
+                        answers.push(parseInt(selected.value));
+                    } else {
+                        answers.push(null);
+                        allAnswered = false;
+                    }
+                });
+                return { answers, allAnswered };
+            }
+
+            function highlightUnanswered() {
+                questions.forEach((q, index) => {
+                    const block = document.getElementById(`question-${index}`);
+                    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                    if (!selected) {
+                        block.style.borderLeftColor = '#e94560';
+                        block.style.backgroundColor = '#fff5f5';
+                    } else {
+                        block.style.borderLeftColor = '#0f3460';
+                        block.style.backgroundColor = '#f8f9fa';
+                    }
+                });
+            }
+
+            function calculateScore(answers) {
+                let correctCount = 0;
+                answers.forEach((ans, idx) => {
+                    if (ans === questions[idx].correct) correctCount++;
+                });
+                return correctCount;
+            }
+
+            function finishTest(forcedByTimer = false) {
+                clearInterval(timerInterval);
+                const { answers, allAnswered } = collectAnswers();
+
+                if (!forcedByTimer && !allAnswered) {
+                    testError.style.display = 'block';
+                    highlightUnanswered();
+                    // Перезапускаем таймер, так как тест не завершен
+                    timerInterval = setInterval(() => {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    }, 1000);
+                    return;
+                }
+                testError.style.display = 'none';
+                const score = calculateScore(answers);
+                const total = questions.length;
+                const percent = Math.round((score / total) * 100);
+
+                // Заполняем сертификат
+                certName.textContent = `${userLastName} ${userFirstName}`;
+                certScore.textContent = `${score} / ${total}`;
+                certPercentage.textContent = `Результат: ${percent}%`;
+                const now = new Date();
+                certDate.textContent = now.toLocaleDateString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }) + ' ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+
+                showScreen(certificateScreen);
+                downloadError.style.display = 'none';
+            }
+
+            function resetTest() {
+                clearInterval(timerInterval);
+                timeLeft = 30 * 60;
+                updateTimerDisplay();
+                timerDisplay.parentElement.classList.remove('warning');
+                renderQuestions();
+                testError.style.display = 'none';
+                downloadError.style.display = 'none';
+                showScreen(registerScreen);
+            }
+
+            // Функция скачивания сертификата с демонстрацией ошибки
+            function attemptDownload() {
+                // Имитация ошибки: если пользователь не прошёл тест или пытается скачать до завершения
+                // В данном случае мы показываем ошибку, потому что "скачать" как файл напрямую из браузера
+                // без серверной части сложно. Покажем уведомление об ошибке и предложим печать.
+                downloadError.style.display = 'block';
+                downloadError.textContent =
+                    '⚠️ Ошибка: автоматическое скачивание сертификата временно недоступно. Пожалуйста, используйте кнопку "Распечатать" и сохраните как PDF в диалоге печати (Ctrl+P). Автор: Токтобаев Шахром.';
+            }
+
+            // ---------- ОБРАБОТЧИКИ ----------
+            document.getElementById('startTestBtn').addEventListener('click', () => {
+                const fn = firstNameInput.value.trim();
+                const ln = lastNameInput.value.trim();
+                if (!fn || !ln) {
+                    regError.style.display = 'block';
+                    return;
+                }
+                regError.style.display = 'none';
+                userFirstName = fn;
+                userLastName = ln;
+                // Автоматическое сохранение данных в localStorage (имитация сохранения)
+                localStorage.setItem('testUser', JSON.stringify({ firstName: fn, lastName: ln }));
+                renderQuestions();
+                startTimer();
+                showScreen(testScreen);
+            });
+
+            document.getElementById('finishTestBtn').addEventListener('click', () => {
+                finishTest(false);
+            });
+
+            document.getElementById('printBtn').addEventListener('click', () => {
+                window.print();
+            });
+
+            document.getElementById('downloadAttemptBtn').addEventListener('click', attemptDownload);
+
+            document.getElementById('retryBtn').addEventListener('click', resetTest);
+
+            // Инициализация: если есть сохраненные данные, подставить их
+            const saved = localStorage.getItem('testUser');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed.firstName) firstNameInput.value = parsed.firstName;
+                    if (parsed.lastName) lastNameInput.value = parsed.lastName;
+                } catch (e) {}
+            }
+        })();
+    </script>
+</body>
+</html>
